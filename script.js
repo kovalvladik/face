@@ -28,7 +28,8 @@ video.addEventListener('play', () => {
 
     function rr() {
       face2 = (detections.length)
-      console.log(detections.length)
+      // console.log(detections.length)
+      localStorage.setItem('face',face2)
     }
     rr()
 
@@ -45,8 +46,8 @@ video.addEventListener('play', () => {
 
 console.log(wsConnection.readyState)
 wsConnection.onopen = function() {
-  alert("Соединение установлено.");
-  wsConnection.send(face2)
+  console.log("Соединение установлено.");
+  wsConnection.send(localStorage.getItem('face'))
 };
 
 wsConnection.onclose = function(event) {
@@ -72,7 +73,12 @@ wsConnection.onerror = function(error) {
   }
 };
 
- wsConnection.onmessage = function (event){
-   console.log(event.data)
- }
 
+setInterval(()=>{
+  wsConnection.send(localStorage.getItem('face'))
+  console.log(localStorage.getItem('face'))
+  console.log(wsConnection.readyState)
+},1000)
+
+
+se

@@ -1,6 +1,7 @@
 const http = require("http");
 const express = require( "express");
 const WebSocket = require( "ws");
+const PORT = 8999;
 
 const app = express();
 
@@ -16,15 +17,16 @@ webSocketServer.on('connection', ws => {
     ws.on("error", e => ws.send(e));
 
     ws.send('Hi there, I am a WebSocket server');
-    const dispatchEvent = (message, ws) => {
-        const json = JSON.parse(message);
-        switch (json.event) {
-            case "chat-message": webSocketServer.clients.forEach(client => client.send(message));
-            default: ws.send((new Error("Wrong query")).message);
-        }
-    }
+    // const dispatchEvent = (message, ws) => {
+    //     const json = JSON.parse(message);
+    //     switch (json.event) {
+    //         case "chat-message": webSocketServer.clients.forEach(client => client.send(message));
+    //         default: ws.send((new Error("Wrong query")).message);
+    //     }
+    // }
+    ws.onmessage( console.log('here'))
 });
 
 
 
-server.listen(8999, () => console.log(`Server started on ${8999} port`))
+server.listen(PORT, () => console.log(`Server started on ${PORT} port`))

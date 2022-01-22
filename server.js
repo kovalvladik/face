@@ -12,6 +12,8 @@ const webSocketServer = new WebSocket.Server({ server });
 webSocketServer.on('connection', ws => {
     ws.on('message', m => {
         webSocketServer.clients.forEach(client => client.send(m));
+        console.log(m, 'here message')
+        console.log(Buffer.from(m, 'utf8'), 'here message')
     });
 
     ws.on("error", e => ws.send(e));
@@ -24,7 +26,7 @@ webSocketServer.on('connection', ws => {
     //         default: ws.send((new Error("Wrong query")).message);
     //     }
     // }
-    ws.onmessage( console.log('here'))
+
 });
 
 

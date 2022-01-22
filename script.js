@@ -75,10 +75,13 @@ wsConnection.onerror = function(error) {
 
 
 setInterval(()=>{
-  wsConnection.send(localStorage.getItem('face'))
+  const data  = localStorage.getItem('face')
+  console.log(typeof data)
+  // wsConnection.send(localStorage.getItem('face'))
+  wsConnection.send(data)
   console.log(localStorage.getItem('face'))
-  console.log(wsConnection.readyState)
+  // console.log(wsConnection.readyState)
 },1000)
 
 
-se
+

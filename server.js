@@ -1,13 +1,13 @@
 const http = require("http");
-const express = require( "express");
-const WebSocket = require( "ws");
+const express = require("express");
+const WebSocket = require("ws");
 const PORT = 8999;
 
 const app = express();
 
 const server = http.createServer(app);
 
-const webSocketServer = new WebSocket.Server({ server });
+const webSocketServer = new WebSocket.Server({server});
 
 webSocketServer.on('connection', ws => {
     ws.on('message', m => {
@@ -28,7 +28,6 @@ webSocketServer.on('connection', ws => {
     // }
 
 });
-
 
 
 server.listen(PORT, () => console.log(`Server started on ${PORT} port`))

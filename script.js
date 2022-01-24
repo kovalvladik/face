@@ -50,6 +50,13 @@ wsConnection.onopen = function () {
     wsConnection.send(localStorage.getItem('face'))
 };
 
+wsConnection.onmessage = function (event) {
+    if (typeof event.data !== 'object') {
+        console.log(event.data)
+    }
+
+}
+
 wsConnection.onclose = function (event) {
     if (event.wasClean) {
         console.log('Соединение закрыто чисто');
@@ -76,10 +83,8 @@ const wsSend = function (data) {
 
 setInterval(() => {
     const data = localStorage.getItem('face')
-    // console.log(typeof data)
     // wsConnection.send(localStorage.getItem('face'))
     wsConnection.send(data)
-    // console.log(localStorage.getItem('face'))
     // console.log(wsConnection.readyState)
 }, 1000)
 

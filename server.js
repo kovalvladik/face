@@ -14,9 +14,11 @@ const webSocketServer = new WebSocket.Server({server});
 // });
 
 webSocketServer.on('connection', ws => {
+    let buf = 0
+
     ws.on('message', m => {
         webSocketServer.clients.forEach(client => client.send(m));
-        const buf = Buffer.from(m,'utf8').toString()
+         buf = Buffer.from(m,'utf8').toString()
 
         console.log(buf, 'face here')
     });
@@ -24,6 +26,9 @@ webSocketServer.on('connection', ws => {
     ws.on("error", e => ws.send(e));
 
     ws.send('Hi there, I am a WebSocket server');
+    setInterval(()=>{
+        ws.send(buf)
+    },1000)
     // const dispatchEvent = (message, ws) => {
     //     const json = JSON.parse(message);
     //     switch (json.event) {

@@ -9,35 +9,22 @@ const server = http.createServer(app);
 
 const webSocketServer = new WebSocket.Server({server});
 
-// app.get('/', function(req, res) {
-//     res.sendFile('index.html', { root: '.' });
-// });
-
 webSocketServer.on('connection', ws => {
     let buf = 0
 
     ws.on('message', m => {
         webSocketServer.clients.forEach(client => client.send(m));
-         buf = Buffer.from(m,'utf8').toString()
+        buf = Buffer.from(m, 'utf8').toString()
 
         console.log(buf, 'face here')
     });
 
     ws.on("error", e => ws.send(e));
 
-    ws.send('Hi there, I am a WebSocket server');
-    setInterval(()=>{
+    setInterval(() => {
         ws.send(buf)
-    },1000)
-    // const dispatchEvent = (message, ws) => {
-    //     const json = JSON.parse(message);
-    //     switch (json.event) {
-    //         case "chat-message": webSocketServer.clients.forEach(client => client.send(message));
-    //         default: ws.send((new Error("Wrong query")).message);
-    //     }
-    // }
+    }, 1000)
 
 });
-
 
 server.listen(PORT, () => console.log(`Server started on ${PORT} port`))

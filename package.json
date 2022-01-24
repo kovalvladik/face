@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run open",
-    "open": " http-server -a localhost -p 1234"
+    "open": "concurrently  \" node server.js\" \"http-server -a localhost -p 1234\" "
   },
   "dependencies": {
     "express": "^4.17.2",

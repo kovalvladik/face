@@ -25,14 +25,13 @@ video.addEventListener('play', () => {
     setInterval(async () => {
         const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
 
-        function rr() {
+        function faceDetected() {
             face2 = (detections.length)
             // console.log(detections.length)
             localStorage.setItem('face', face2)
         }
 
-        rr()
-
+        faceDetected()
 
         const resizedDetections = faceapi.resizeResults(detections, displaySize)
         canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
@@ -52,7 +51,7 @@ wsConnection.onopen = function () {
 
 wsConnection.onmessage = function (event) {
     if (typeof event.data !== 'object') {
-        console.log(event.data)
+        console.log(event.data, ' from ws')
     }
 
 }
@@ -70,20 +69,8 @@ wsConnection.onerror = function (error) {
     alert("Ошибка " + error.message);
 };
 
-const wsSend = function (data) {
-    if (!wsConnection.readyState) {
-        setTimeout(function () {
-            wsSend('data');
-        }, 100);
-    } else {
-        wsConnection.send('false data');
-    }
-};
-
-
 setInterval(() => {
     const data = localStorage.getItem('face')
-    // wsConnection.send(localStorage.getItem('face'))
     wsConnection.send(data)
     // console.log(wsConnection.readyState)
 }, 1000)

@@ -9,11 +9,15 @@ const server = http.createServer(app);
 
 const webSocketServer = new WebSocket.Server({server});
 
+// app.get('/', function(req, res) {
+//     res.sendFile('index.html', { root: '.' });
+// });
+
 webSocketServer.on('connection', ws => {
     ws.on('message', m => {
         webSocketServer.clients.forEach(client => client.send(m));
-        console.log(m, 'here message')
-        console.log(Buffer.from(m, 'utf8'), 'here message')
+        const buf = Buffer.from(m,'utf8')
+        console.log(buf.toString())
     });
 
     ws.on("error", e => ws.send(e));

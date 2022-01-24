@@ -1,9 +1,24 @@
 {
+  "name": "npm-lesson",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run open",
+    "open": "concurrently \"http-server -a localhost -p 1234\""
+  },
   "dependencies": {
     "express": "^4.17.2",
     "ws": "^8.4.2"
   },
   "optionalDependencies": {
     "utf-8-validate": "^5.0.8"
-  }
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0",
+    "http-server": "^14.1.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

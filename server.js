@@ -16,8 +16,9 @@ const webSocketServer = new WebSocket.Server({server});
 webSocketServer.on('connection', ws => {
     ws.on('message', m => {
         webSocketServer.clients.forEach(client => client.send(m));
-        const buf = Buffer.from(m,'utf8')
-        console.log(buf.toString())
+        const buf = Buffer.from(m,'utf8').toString()
+
+        console.log(buf, 'face here')
     });
 
     ws.on("error", e => ws.send(e));

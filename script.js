@@ -73,7 +73,7 @@ setInterval(() => {
     const data = localStorage.getItem('face')
     wsConnection.send(data)
     // console.log(wsConnection.readyState)
-}, 1000)
+}, 500)
 
 
 

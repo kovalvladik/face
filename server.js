@@ -10,20 +10,14 @@ const server = http.createServer(app);
 const webSocketServer = new WebSocket.Server({server});
 
 webSocketServer.on('connection', ws => {
-    let buf = 0
 
     ws.on('message', m => {
-        webSocketServer.clients.forEach(client => client.send(m));
-        buf = Buffer.from(m, 'utf8').toString()
+        let buf = Buffer.from(m, 'utf8').toString()
+        webSocketServer.clients.forEach(client => client.send(buf))
 
-        console.log(buf, 'face here')
     });
 
     ws.on("error", e => ws.send(e));
-
-    setInterval(() => {
-        ws.send(buf)
-    }, 1000)
 
 });
 
